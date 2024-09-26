@@ -32,7 +32,6 @@ export default function Splash() {
         style={styles.ImageContainer}
         source={BackgroundImage}>
         <Image style={styles.LogoImage} source={Logo} />
-
         <Image style={styles.Log} source={LogImage} />
       </ImageBackground>
     </SafeAreaView>
@@ -50,12 +49,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   LogoImage: {
-    width: moderateScale(70),
-    height: moderateScale(140),
+    width: moderateScale(220),
+    height: moderateScale(220),
   },
   Log: {
     width: moderateScale(110),
     height: moderateScale(20),
-    top: '32%',
+    top: '28%',
   },
 });

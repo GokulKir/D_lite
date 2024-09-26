@@ -16,16 +16,18 @@ import {Formik} from 'formik';
 import OTPInputView from '@twotalltotems/react-native-otp-input';
 import OTPTextInput from 'react-native-otp-textinput';
 import FastImage from 'react-native-fast-image';
+import {useNavigation} from '@react-navigation/native';
 
 export default function OtpFeald() {
+  const navigation = useNavigation();
   const {width} = useWindowDimensions();
   const otpInput = useRef();
   // const { MobileAuth } = useMobile();
   // const { mobile } = useAuthStore();
 
-  const handleMobile = () => {
-    //   MobileAuth(mobile ? `${mobile}+${mobile}` : `+91${mobile}`);
-  };
+  // const handleMobile = () => {
+  //   //   MobileAuth(mobile ? `${mobile}+${mobile}` : `+91${mobile}`);
+  // };
 
   const handleOTPSuccess = otp => {
     console.log(otp);
@@ -51,8 +53,7 @@ export default function OtpFeald() {
       </View>
 
       <View style={styles.MobileHeader}>
-    
-         <FastImage
+        <FastImage
           source={require('../../assets/OTP.gif')}
           style={{width: '100%', height: '100%', alignItems: 'center'}} // Adjust dimensions as needed
         />
@@ -169,7 +170,7 @@ export default function OtpFeald() {
                 I did't receive a code
               </Text>
 
-              <TouchableOpacity onPress={handleSubmit}>
+              <TouchableOpacity onPress={() => navigation.navigate('Drawers')}>
                 <Text
                   style={{
                     color: '#fb9407',
