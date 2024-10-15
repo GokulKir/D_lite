@@ -112,6 +112,8 @@ dependencies {
     implementation project(':react-native-svg')
     implementation project(':react-native-config')
     implementation project(':react-native-vector-icons')
+    implementation project(':react-native-pager-view')
+
 
     if (hermesEnabled.toBoolean()) { 
         implementation("com.facebook.react:hermes-android")

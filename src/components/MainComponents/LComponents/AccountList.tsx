@@ -1,19 +1,15 @@
 import {
   Dimensions,
-  FlatList,
   StyleSheet,
   Text,
   View,
   Image,
+  ScrollView,
   RefreshControl,
-  ActivityIndicator,
-  TouchableOpacity,
-  Animated,
 } from 'react-native';
-import React, {useRef, useState} from 'react';
+import React, {useState} from 'react';
 import {moderateScale} from 'react-native-size-matters';
 import Ripple from 'react-native-material-ripple';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import {useNavigation} from '@react-navigation/native';
 
 const {height, width} = Dimensions.get('window');
@@ -75,138 +71,64 @@ const data = [
   },
 ];
 
-export default function ChatList() {
+export default function AccountList() {
   const navigation = useNavigation();
-  const [refreshing, setRefreshing] = useState(false);
-  const scrollY = useRef(new Animated.Value(0)).current; // Correct usage
-  const fadeAnim = useRef(new Animated.Value(1)).current; // Correct usage
-
-  const onRefresh = () => {
-    setRefreshing(true);
-    // Simulate fetching data (you can replace this with an actual API call)
-    setTimeout(() => {
-      setRefreshing(false);
-    }, 2000);
-  };
-
-  const renderItem = ({item}) => (
-    <Ripple
-      rippleOpacity={0.5}
-      rippleDuration={500}
-      rippleColor="#727273"
-      style={styles.itemContainer}>
-      <View style={styles.avatarBox}>
-        <Image source={{uri: item.image}} style={styles.avatar} />
-      </View>
-
-      <View style={styles.ChatSecContainer}>
-        <View style={styles.BoxFirst}>
-          <View style={styles.TextBox}>
-            <Text
-              numberOfLines={1}
-              ellipsizeMode="tail"
-              style={styles.nameText}>
-              {item.name}
-            </Text>
-          </View>
-
-          <View style={styles.TextBox2}>
-            <Text
-              style={styles.descriptionText}
-              numberOfLines={1}
-              ellipsizeMode="tail">
-              {item.description}
-            </Text>
-          </View>
-        </View>
-
-        <View style={styles.BoxSec}>
-          <View style={styles.TimeBox}>
-            <Text style={styles.timeStyle}>{item.time}</Text>
-          </View>
-
-          <View style={styles.TimeBox}>
-            <View style={styles.LengthBox}>
-              <Text style={styles.chatLengthText}>{item.chatLength}</Text>
-            </View>
-          </View>
-        </View>
-      </View>
-    </Ripple>
-  );
-
-  // Function to hide the button with animation
-  const hideButton = () => {
-    Animated.timing(fadeAnim, {
-      toValue: 0,
-      duration: 300,
-      useNativeDriver: true,
-    }).start();
-  };
-
-  // Function to show the button with animation
-  const showButton = () => {
-    Animated.timing(fadeAnim, {
-      toValue: 1,
-      duration: 300,
-      useNativeDriver: true,
-    }).start();
-  };
 
   return (
-    <View style={styles.container}>
-      <Animated.FlatList
-        data={data}
-        keyExtractor={item => item.id.toString()}
-        renderItem={renderItem}
-        style={styles.list}
-        showsVerticalScrollIndicator={false}
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        }
-        ListFooterComponent={() =>
-          refreshing ? <ActivityIndicator size="large" color="orange" /> : null
-        }
-        onScroll={Animated.event(
-          [{nativeEvent: {contentOffset: {y: scrollY}}}],
-          {
-            listener: event => {
-              const currentOffset = event.nativeEvent.contentOffset.y;
-              if (currentOffset > 0) {
-                hideButton(); // Hide button when scrolling up
-              } else {
-                showButton(); // Show button when scrolling to top
-              }
-            },
-            useNativeDriver: false,
-          },
-        )}
-      />
-
-      {/* Floating Button */}
-      <Animated.View
-        style={[
-          styles.floatingButton,
-          {opacity: fadeAnim}, // Bind opacity to animated value
-        ]}>
+    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+      {data.map(item => (
         <Ripple
-          style={styles.Ripplecontainer}
-          onPress={() => navigation.navigate('AccountsListing')}>
-          <Icon name="edit" size={30} color="#fff" />
+          key={item.id}
+          rippleOpacity={0.5}
+          rippleDuration={500}
+          rippleColor="#727273"
+          style={styles.itemContainer}>
+          <View style={styles.avatarBox}>
+            <Image source={{uri: item.image}} style={styles.avatar} />
+          </View>
+
+          <View style={styles.ChatSecContainer}>
+            <View style={styles.BoxFirst}>
+              <View style={styles.TextBox}>
+                <Text
+                  numberOfLines={1}
+                  ellipsizeMode="tail"
+                  style={styles.nameText}>
+                  {item.name}
+                </Text>
+              </View>
+
+              <View style={styles.TextBox2}>
+                <Text
+                  style={styles.descriptionText}
+                  numberOfLines={1}
+                  ellipsizeMode="tail">
+                  {item.description}
+                </Text>
+              </View>
+            </View>
+
+            <View style={styles.BoxSec}>
+              {/* <View style={styles.TimeBox}>
+                  <Text style={styles.timeStyle}>{item.time}</Text>
+                </View>
+  
+                <View style={styles.TimeBox}>
+                  <View style={styles.LengthBox}>
+                    <Text style={styles.chatLengthText}>{item.chatLength}</Text>
+                  </View>
+                </View> */}
+            </View>
+          </View>
         </Ripple>
-      </Animated.View>
-    </View>
+      ))}
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  list: {
-    width: width - 5,
-    alignSelf: 'center',
-    marginTop: moderateScale(10),
   },
   itemContainer: {
     flexDirection: 'row',
@@ -313,29 +235,6 @@ const styles = StyleSheet.create({
     height: moderateScale(22),
     backgroundColor: 'orange',
     borderRadius: moderateScale(100),
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  // Floating button styles
-  floatingButton: {
-    position: 'absolute',
-    bottom: moderateScale(20),
-    right: moderateScale(20),
-    width: moderateScale(60),
-    height: moderateScale(60),
-    borderRadius: moderateScale(30),
-    backgroundColor: '#FFA500',
-    alignItems: 'center',
-    justifyContent: 'center',
-    shadowColor: '#000',
-    shadowOffset: {width: 0, height: 1},
-    shadowOpacity: 0.3,
-    shadowRadius: 4,
-    elevation: 5,
-  },
-  Ripplecontainer: {
-    width: '100%',
-    height: '100%',
     alignItems: 'center',
     justifyContent: 'center',
   },

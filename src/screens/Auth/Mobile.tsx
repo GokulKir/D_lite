@@ -24,7 +24,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {setShowCode, setCountryState, setLoadingValue} from '../redux/action';
 import CountryModal from '../../components/CountryModal';
 import LoadingModal from '../../components/Modal/LoadingModal';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 //   import useAuthStore from "../../hooks/useAuthStore";
 
 const phoneSchema = Yup.object().shape({
@@ -49,13 +49,11 @@ export default function Mobile() {
     //   MobileAuth(showcode ? `${showcode}+${values.phone}` : `+91${values.phone}`);
     //   seLoading(true);
 
-
-
     dispatch(setLoadingValue(true));
 
     setTimeout(() => {
       dispatch(setLoadingValue(false));
-      navigation.navigate('Otp')
+      navigation.navigate('Otp');
     }, 1500);
   };
 
@@ -124,7 +122,7 @@ export default function Mobile() {
         validationSchema={phoneSchema}
         onSubmit={values => {
           console.log(values?.phone);
-  
+
           handleMobile(values);
           // setMobile(values?.phone);
         }}>

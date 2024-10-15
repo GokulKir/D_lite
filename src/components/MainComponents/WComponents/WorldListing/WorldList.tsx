@@ -14,6 +14,7 @@ import React, {useRef, useState} from 'react';
 import {moderateScale} from 'react-native-size-matters';
 import Ripple from 'react-native-material-ripple';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import Icon1 from 'react-native-vector-icons/SimpleLineIcons';
 import {useNavigation} from '@react-navigation/native';
 
 const {height, width} = Dimensions.get('window');
@@ -21,61 +22,34 @@ const {height, width} = Dimensions.get('window');
 const data = [
   {
     id: 1,
-    name: 'Theresa Webb',
+    name: 'Developers World',
     time: '18:20',
     description: 'Why did you stop?',
     image:
-      'https://themoderndirectory.com/wp-content/uploads/2023/01/web-29-The-Modern-Directory_r2_095A6057.jpg',
+      'https://cdn.prod.website-files.com/6344c9cef89d6f2270a38908/64dfc8162b86aaaa4236ed07_Header.webp',
     chatLength: '2',
   },
   {
     id: 2,
-    name: 'Calvin Flores',
-    time: '16:35',
-    description: "He didn't come to my house!",
+    name: 'React_Developer World',
+    time: '18:20',
+    description: 'Why did you stop?',
     image:
-      'https://i.pinimg.com/200x/e7/85/f1/e785f16502696572b418d6b4000fda2c.jpg',
-    chatLength: '3',
-  },
-  {
-    id: 3,
-    name: 'Gregory Bell',
-    time: '15:17',
-    description: 'When are you bringing this?',
-    image:
-      'https://i1.au.reastatic.net/400x400,gravity=north/f0827f563bda94ca111d0ced04334ceda1cecc4863200f76b83cc85e561bfacb/main.jpg',
-    chatLength: '1',
-  },
-  {
-    id: 4,
-    name: 'Soham Henry',
-    time: '14:50',
-    description: "No, I'm just here",
-    image:
-      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBgcdeymDClxjZrXCW6LDUwzZJXeZOU-_232Rq7PeN2gK2fLS8usRHFYcTyjew_sPCqc4&usqp=CAU',
+      'https://shamlatech.com/wp-content/uploads/2023/12/hire-native-react-01.webp',
     chatLength: '2',
   },
   {
-    id: 5,
-    name: 'Mother ❤️',
-    time: '08:30',
-    description: 'Please call me back',
+    id: 3,
+    name: 'Developers World',
+    time: '18:20',
+    description: 'Why did you stop?',
     image:
-      'https://t3.ftcdn.net/jpg/01/33/67/94/360_F_133679430_pdM6J7y5CsvPRqqt7bcKau2QkbOP51Wl.jpg',
-    chatLength: '10',
-  },
-  {
-    id: 6,
-    name: 'Wife ❤️',
-    time: '08:30',
-    description: 'Please call me back',
-    image:
-      'https://t3.ftcdn.net/jpg/01/33/67/94/360_F_133679430_pdM6J7y5CsvPRqqt7bcKau2QkbOP51Wl.jpg',
-    chatLength: '5',
+      'https://cdn.prod.website-files.com/63a58f5eea7e9c9396453f5b/653b90b7f8b5205c6d643bdf_pexels-sora-shimazaki-5926389.webp',
+    chatLength: '2',
   },
 ];
 
-export default function ChatList() {
+export default function WorldList() {
   const navigation = useNavigation();
   const [refreshing, setRefreshing] = useState(false);
   const scrollY = useRef(new Animated.Value(0)).current; // Correct usage
@@ -122,13 +96,13 @@ export default function ChatList() {
 
         <View style={styles.BoxSec}>
           <View style={styles.TimeBox}>
-            <Text style={styles.timeStyle}>{item.time}</Text>
+            <Icon1 name="arrow-right" size={moderateScale(10)} color="#fff" />
           </View>
 
           <View style={styles.TimeBox}>
-            <View style={styles.LengthBox}>
-              <Text style={styles.chatLengthText}>{item.chatLength}</Text>
-            </View>
+            {/* <View style={styles.LengthBox}>
+                <Text style={styles.chatLengthText}>{item.chatLength}</Text>
+              </View> */}
           </View>
         </View>
       </View>
@@ -182,19 +156,6 @@ export default function ChatList() {
           },
         )}
       />
-
-      {/* Floating Button */}
-      <Animated.View
-        style={[
-          styles.floatingButton,
-          {opacity: fadeAnim}, // Bind opacity to animated value
-        ]}>
-        <Ripple
-          style={styles.Ripplecontainer}
-          onPress={() => navigation.navigate('AccountsListing')}>
-          <Icon name="edit" size={30} color="#fff" />
-        </Ripple>
-      </Animated.View>
     </View>
   );
 }
